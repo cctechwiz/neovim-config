@@ -12,14 +12,17 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'airblade/vim-gitgutter'
-" Fixes gutter refreshing due to focus events in tmux
-Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'tmux-plugins/vim-tmux-focus-events' " Fixes gutter refreshing in tmux
+
+Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
 
 " TODO: was causing some coloring / hightlighting issues I need to work out
 "Plug 'sheerun/vim-polyglot'
 
 Plug 'vimwiki/vimwiki'
 
+" Theme
 Plug 'sainnhe/edge'
 
 call plug#end()
@@ -44,6 +47,7 @@ set splitright
 set undodir=~/.config/nvim/undodir
 set undofile
 set clipboard+=unnamedplus
+set noshowmode
 
 
 " ~~~ SEARCHING ~~~
@@ -78,7 +82,12 @@ set smarttab
 set termguicolors
 set background=dark
 colorscheme edge
-
+set laststatus=2
+set showtabline=2
+let g:lightline = {'colorscheme': 'wombat'}
+let g:lightline.tabline = {'left': [['buffers']], 'right': [['bufnum']]}
+let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
+let g:lightline.component_type = {'buffers': 'tabsel'}
 
 " ~~~ NAVIGATION MAPPINGS ~~~
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -90,8 +99,8 @@ noremap <Up> gk
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
 " Buffers
-noremap <C-A-Left> :bp<CR>
-noremap <C-A-Right> :bn<CR>
+noremap <C-A-P> :bp<CR>
+noremap <C-A-N> :bn<CR>
 " Splits
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
