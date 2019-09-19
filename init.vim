@@ -133,7 +133,7 @@ endfunc
 augroup markdown
   autocmd!
   autocmd BufNewFile,BufRead *.md,*.markdown setlocal filetype=markdown
-  autocmd FileType markdown set spell spelllang=en_us
+  "autocmd FileType markdown set spell spelllang=en_us
 augroup END
 
 
