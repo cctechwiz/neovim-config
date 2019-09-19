@@ -57,6 +57,7 @@ set ignorecase
 set smartcase
 set incsearch
 set hlsearch
+set inccommand=nosplit
 
 
 " ~~~ FORMATTING ~~~
@@ -88,6 +89,8 @@ let g:lightline = {'colorscheme': 'wombat'}
 let g:lightline.tabline = {'left': [['buffers']], 'right': [['bufnum']]}
 let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type = {'buffers': 'tabsel'}
+hi! link Search PMenu
+hi! link IncSearch PMenuSel
 
 " ~~~ NAVIGATION MAPPINGS ~~~
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~
