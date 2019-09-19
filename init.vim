@@ -8,9 +8,15 @@ Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Completions: https://github.com/Shougo/deoplete.nvim/wiki/Completion-Sources
 
-Plug 'airblade/vim-gitgutter'
+" Requires some changes in ~/.tmux.conf as well, see repo for details
+Plug 'christoomey/vim-tmux-navigator'
 
-Plug 'sheerun/vim-polyglot'
+Plug 'airblade/vim-gitgutter'
+" Fixes gutter refreshing due to focus events in tmux
+Plug 'tmux-plugins/vim-tmux-focus-events'
+
+" TODO: was causing some coloring / hightlighting issues I need to work out
+"Plug 'sheerun/vim-polyglot'
 
 Plug 'vimwiki/vimwiki'
 
