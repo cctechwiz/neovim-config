@@ -4,7 +4,8 @@ mkdir -p $HOME/bin/
 
 echo 'Installing dependencies'
 sudo apt update
-sudo apt install curl xclip python3-pip
+sudo apt install fuse curl xclip python-pip python3-pip
+pip install pynvim
 pip3 install pynvim
 
 pushd $HOME/bin
@@ -26,10 +27,10 @@ curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 echo 'Installing / Updating plugins from init.nvim'
-nvim -c ':PlugInstall' -c ':UpdateRemotePlugins' -c ':qall'
+vim -c ':PlugInstall' -c ':UpdateRemotePlugins' -c ':qall'
 
 echo 'Checking the health of current nvim configuration'
-nvim -c ':checkhealth'
+vim -c ':checkhealth'
 
 echo 'Done! Enjoy Neovim!"
 exit 0
