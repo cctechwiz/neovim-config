@@ -22,6 +22,7 @@ endif
 " apt install clang clang-format clang-tidy clang-tools
 if executable('clang')
   Plug 'Shougo/deoplete-clangx'
+  Plug 'Shougo/neoinclude.vim'
 endif
 
 " pip3 install jedi
