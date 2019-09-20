@@ -48,6 +48,7 @@ set undodir=~/.config/nvim/undodir
 set undofile
 set clipboard+=unnamedplus
 set noshowmode
+set scrolloff=8
 
 
 " ~~~ SEARCHING ~~~
