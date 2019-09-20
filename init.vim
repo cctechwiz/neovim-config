@@ -85,7 +85,7 @@ set background=dark
 colorscheme edge
 set laststatus=2
 set showtabline=2
-let g:lightline = {'colorscheme': 'wombat'}
+let g:lightline = {'colorscheme': 'edge'}
 let g:lightline.tabline = {'left': [['buffers']], 'right': [['bufnum']]}
 let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type = {'buffers': 'tabsel'}
