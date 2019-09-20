@@ -5,25 +5,38 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 
+Plug 'airblade/vim-gitgutter'
+
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Completions: https://github.com/Shougo/deoplete.nvim/wiki/Completion-Sources
 
-" Requires some changes in ~/.tmux.conf as well, see repo for details
-Plug 'christoomey/vim-tmux-navigator'
+Plug 'Shougo/neco-vim'
 
-Plug 'airblade/vim-gitgutter'
-Plug 'tmux-plugins/vim-tmux-focus-events' " Fixes gutter refreshing in tmux
+" apt install tmux
+if executable('tmux')
+  Plug 'wellle/tmux-complete.vim'
+  Plug 'christoomey/vim-tmux-navigator' " Requires changes in ~/.tmux.conf
+  Plug 'tmux-plugins/vim-tmux-focus-events' " Fixes gutter refreshing in tmux
+endif
 
-Plug 'itchyny/lightline.vim'
-Plug 'mengelbrecht/lightline-bufferline'
+" apt install clang clang-format clang-tidy clang-tools
+if executable('clang')
+  Plug 'Shougo/deoplete-clangx'
+endif
+
+" pip3 install jedi
+if executable('jedi')
+  Plug 'deoplete-plugins/deoplete-jedi'
+endif
 
 " TODO: was causing some coloring / hightlighting issues I need to work out
 "Plug 'sheerun/vim-polyglot'
 
 Plug 'vimwiki/vimwiki'
 
-" Theme
 Plug 'sainnhe/edge'
+Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
 
 call plug#end()
 
