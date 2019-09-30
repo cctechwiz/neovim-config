@@ -5,6 +5,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
 Plug 'airblade/vim-gitgutter'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -26,9 +28,7 @@ if executable('clang')
 endif
 
 " pip3 install jedi
-if executable('jedi')
-  Plug 'deoplete-plugins/deoplete-jedi'
-endif
+Plug 'deoplete-plugins/deoplete-jedi'
 
 " TODO: was causing some coloring / hightlighting issues I need to work out
 "Plug 'sheerun/vim-polyglot'
