@@ -6,6 +6,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 Plug 'airblade/vim-gitgutter'
 
@@ -133,6 +134,10 @@ nnoremap <C-l> <C-w>l
 :map <leader>s :mksession<CR>
 :map <leader>n :call ToggleLineNumbering()<CR>
 
+if executable('fzf')
+  :map <expr> <leader>f (len(system('git rev-parse')) ? ':Files' : ':GFiles --exclude-standard --others --cached')."\<cr>"
+  :map <silent> <leader>b :Buffers<CR>
+endif
 
 " ~~~ OTHER MAPPINGS ~~~
 " ~~~~~~~~~~~~~~~~~~~~~~
