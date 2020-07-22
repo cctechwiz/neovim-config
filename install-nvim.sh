@@ -32,5 +32,5 @@ echo 'Installing / Updating plugins from init.nvim'
 echo 'Checking the health of current nvim configuration'
 ~/bin/nvim.appimage -c ':checkhealth'
 
-echo 'Done! Enjoy Neovim!"
+echo 'Done! Enjoy Neovim!'
 exit 0
