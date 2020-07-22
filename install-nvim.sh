@@ -27,10 +27,10 @@ curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 echo 'Installing / Updating plugins from init.nvim'
-vim -c ':PlugInstall' -c ':UpdateRemotePlugins' -c ':qall'
+~/bin/nvim.appimage -c ':PlugInstall' -c ':UpdateRemotePlugins' -c ':qall'
 
 echo 'Checking the health of current nvim configuration'
-vim -c ':checkhealth'
+~/bin/nvim.appimage -c ':checkhealth'
 
 echo 'Done! Enjoy Neovim!"
 exit 0
