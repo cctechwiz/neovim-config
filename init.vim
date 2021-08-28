@@ -9,10 +9,11 @@ if has("win32")
   call plug#begin('~/AppData/Local/nvim/plugged')
 endif
 
-Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+" https://github.com/fatih/vim-go/wiki/Tutorial
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'AndrewRadev/splitjoin.vim'
 
-"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-"Plug 'junegunn/fzf.vim'
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 
 Plug 'airblade/vim-gitgutter'
 
@@ -21,9 +22,6 @@ if executable('tmux')
   Plug 'christoomey/vim-tmux-navigator' " Requires changes in ~/.tmux.conf
   Plug 'tmux-plugins/vim-tmux-focus-events' " Fixes gutter refreshing in tmux
 endif
-
-" TODO: was causing some coloring / hightlighting issues I need to work out
-"Plug 'sheerun/vim-polyglot'
 
 Plug 'vimwiki/vimwiki'
 
@@ -46,6 +44,7 @@ set relativenumber
 set signcolumn=yes
 set hidden
 set autoread
+set autowrite
 set wildmenu
 set showcmd
 set splitbelow
@@ -92,9 +91,29 @@ set expandtab
 set smarttab
 
 
-" ~~~ GO SPECIFIC FORMATTING ~~~
-" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-au FileType go set noexpandtab
+" ~~~ GO SPECIFIC ~~~
+" ~~~~~~~~~~~~~~~~~~~
+augroup go
+    au FileType go set noexpandtab
+    autocmd FileType go nmap <leader>b  <Plug>(go-build)
+    autocmd FileType go nmap <leader>r <Plug>(go-rename)
+    autocmd FileType go nmap <leader>i <Plug>(go-info)
+    autocmd FileType go nmap <leader>I <Plug>(go-implements)
+    autocmd FileType go nmap <leader>d <Plug>(go-def-vertical)
+    autocmd FileType go nmap <leader>D <Plug>(go-describe)
+    autocmd FileType go nmap <leader>? <Plug>(go-doc)
+    autocmd FileType go nmap <leader>?? <Plug>(go-doc-browser)
+    autocmd FileType go nmap <leader>c <Plug>(go-referrers)
+    autocmd FileType go nmap <leader>C <Plug>(go-callstack)
+    autocmd FileType go nmap <leader>p <Plug>(go-channel-peers)
+    autocmd FileType go vmap <leader>f <Plug>(go-freevars)
+augroup END
+
+let g:go_fmt_command = "goimports"
+let g:go_list_type = "quickfix"
+let g:go_addtags_transform = "camelcase"
+
+let g:go_highlight_types = 1
 
 
 " ~~~ APPEARANCE / THEMES ~~~
@@ -110,6 +129,7 @@ let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type = {'buffers': 'tabsel'}
 hi! link Search PMenu
 hi! link IncSearch PMenuSel
+
 
 " ~~~ NAVIGATION MAPPINGS ~~~
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -128,6 +148,11 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+" Quickfix Menu
+map <C-Right> :cnext<CR>
+map <C-Left> :cprevious<CR>
+map <C-Down> :cclose<CR>
+map <C-Up> :copen<CR>
 
 
 " ~~~ LEADER MAPPINGS ~~~
@@ -137,10 +162,6 @@ nnoremap <C-l> <C-w>l
 :map <leader>s :mksession<CR>
 :map <leader>n :call ToggleLineNumbering()<CR>
 
-"if executable('fzf')
-"  :map <expr> <leader>f (len(system('git rev-parse')) ? ':Files' : ':GFiles --exclude-standard --others --cached')."\<cr>"
-"  :map <silent> <leader>b :Buffers<CR>
-"endif
 
 " ~~~ OTHER MAPPINGS ~~~
 " ~~~~~~~~~~~~~~~~~~~~~~
@@ -169,15 +190,6 @@ function! ToggleSpellChecking()
 endfunc
 
 
-" ~~~ FILETYPE SPECIFIC ~~~
-" ~~~~~~~~~~~~~~~~~~~~~~~~~
-"augroup markdown
-"  autocmd!
-"  autocmd BufNewFile,BufRead *.md,*.markdown setlocal filetype=markdown
-"  "autocmd FileType markdown set spell spelllang=en_us
-"augroup END
-
-
 " ~~~ PLUG-INS / 3RD PARTY ~~~
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -204,9 +216,8 @@ let g:vimwiki_list = [
   \]
 " Only treat .md files in the wiki directory as vimwiki files
 "let g:vimwiki_global_ext = 0
-" Open selected link in a new vertical split with ,v
-nmap <leader>v <Plug>VimwikiVSplitLink
 
+" TODO: Replace ag with rg, since that's what I use most now
 " ~~~ Silver Searcher ~~~
 if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
