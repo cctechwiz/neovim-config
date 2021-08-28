@@ -85,11 +85,16 @@ set colorcolumn=81
 highlight colorcolumn ctermbg=darkgray
 set autoindent
 set smartindent
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set expandtab
 set smarttab
+
+
+" ~~~ GO SPECIFIC FORMATTING ~~~
+" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+au FileType go set noexpandtab
 
 
 " ~~~ APPEARANCE / THEMES ~~~
@@ -166,11 +171,11 @@ endfunc
 
 " ~~~ FILETYPE SPECIFIC ~~~
 " ~~~~~~~~~~~~~~~~~~~~~~~~~
-augroup markdown
-  autocmd!
-  autocmd BufNewFile,BufRead *.md,*.markdown setlocal filetype=markdown
-  "autocmd FileType markdown set spell spelllang=en_us
-augroup END
+"augroup markdown
+"  autocmd!
+"  autocmd BufNewFile,BufRead *.md,*.markdown setlocal filetype=markdown
+"  "autocmd FileType markdown set spell spelllang=en_us
+"augroup END
 
 
 " ~~~ PLUG-INS / 3RD PARTY ~~~
@@ -195,8 +200,10 @@ autocmd BufWritePost * GitGutter
 
 " ~~~ Vimwiki ~~~
 let g:vimwiki_list = [
-      \ {'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'},
+      \ {'path': '/Volumes/GoogleDrive/My Drive/vimwiki', 'syntax': 'markdown', 'ext': '.md'},
   \]
+" Only treat .md files in the wiki directory as vimwiki files
+"let g:vimwiki_global_ext = 0
 " Open selected link in a new vertical split with ,v
 nmap <leader>v <Plug>VimwikiVSplitLink
 
