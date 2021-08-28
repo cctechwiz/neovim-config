@@ -10,26 +10,12 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'airblade/vim-gitgutter'
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Completions: https://github.com/Shougo/deoplete.nvim/wiki/Completion-Sources
-
-Plug 'Shougo/neco-vim'
-
 " apt install tmux
 if executable('tmux')
   Plug 'wellle/tmux-complete.vim'
   Plug 'christoomey/vim-tmux-navigator' " Requires changes in ~/.tmux.conf
   Plug 'tmux-plugins/vim-tmux-focus-events' " Fixes gutter refreshing in tmux
 endif
-
-" apt install clang clang-format clang-tidy clang-tools
-if executable('clang')
-  Plug 'Shougo/deoplete-clangx'
-  Plug 'Shougo/neoinclude.vim'
-endif
-
-" pip3 install jedi
-Plug 'deoplete-plugins/deoplete-jedi'
 
 " TODO: was causing some coloring / hightlighting issues I need to work out
 "Plug 'sheerun/vim-polyglot'
@@ -87,11 +73,16 @@ set colorcolumn=81
 highlight colorcolumn ctermbg=darkgray
 set autoindent
 set smartindent
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set expandtab
 set smarttab
+
+
+" ~~~ GO SPECIFIC FORMATTING ~~~
+" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+au FileType go set noexpandtab
 
 
 " ~~~ APPEARANCE / THEMES ~~~
@@ -168,11 +159,11 @@ endfunc
 
 " ~~~ FILETYPE SPECIFIC ~~~
 " ~~~~~~~~~~~~~~~~~~~~~~~~~
-augroup markdown
-  autocmd!
-  autocmd BufNewFile,BufRead *.md,*.markdown setlocal filetype=markdown
-  "autocmd FileType markdown set spell spelllang=en_us
-augroup END
+"augroup markdown
+"  autocmd!
+"  autocmd BufNewFile,BufRead *.md,*.markdown setlocal filetype=markdown
+"  "autocmd FileType markdown set spell spelllang=en_us
+"augroup END
 
 
 " ~~~ PLUG-INS / 3RD PARTY ~~~
@@ -191,20 +182,16 @@ autocmd bufenter * if (winnr("$") == 1
   \ && exists("b:NERDTree") && b:NERDTree.isTabTree())
   \ | q | endif
 
-" ~~~ Deoplete ~~~
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#disable_auto_complete = 1
-inoremap <silent><expr> <C-Space> deoplete#manual_complete()
-
 " ~~~ Git Gutter ~~~
 " Update gitgutter on save
 autocmd BufWritePost * GitGutter
 
 " ~~~ Vimwiki ~~~
 let g:vimwiki_list = [
-      \ {'path': '~/gtdwiki/', 'syntax': 'markdown', 'ext': '.md'},
-      \ {'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'},
+      \ {'path': '/Volumes/GoogleDrive/My Drive/vimwiki', 'syntax': 'markdown', 'ext': '.md'},
   \]
+" Only treat .md files in the wiki directory as vimwiki files
+"let g:vimwiki_global_ext = 0
 " Open selected link in a new vertical split with ,v
 nmap <leader>v <Plug>VimwikiVSplitLink
 
