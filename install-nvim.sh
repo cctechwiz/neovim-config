@@ -1,5 +1,4 @@
 echo 'Setting up directories'
-mkdir -p $HOME/.config/nvim
 mkdir -p $HOME/bin/
 
 echo 'Installing dependencies'

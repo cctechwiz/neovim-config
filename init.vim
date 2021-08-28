@@ -1,16 +1,21 @@
 " ~~~ VIM-PLUG ~~~
 " ~~~~~~~~~~~~~~~~
-" See: https://github.com/junegunn/vim-plug
-call plug#begin('~/.local/share/nvim/plugged')
+if has("unix")
+  " https://github.com/junegunn/vim-plug#unix-linux
+  call plug#begin('~/.local/share/nvim/plugged')
+endif
+if has("win32")
+  " https://github.com/junegunn/vim-plug#windows-powershell-1
+  call plug#begin('~/AppData/Local/nvim/plugged')
+endif
 
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+"Plug 'junegunn/fzf.vim'
 
 Plug 'airblade/vim-gitgutter'
 
-" apt install tmux
 if executable('tmux')
   Plug 'wellle/tmux-complete.vim'
   Plug 'christoomey/vim-tmux-navigator' " Requires changes in ~/.tmux.conf
@@ -45,11 +50,18 @@ set wildmenu
 set showcmd
 set splitbelow
 set splitright
-set undodir=~/.config/nvim/undodir
-set undofile
 set clipboard+=unnamedplus
 set noshowmode
 set scrolloff=8
+
+if has("unix")
+  set undodir=~/.config/nvim/undodir
+endif
+if has("win32")
+  set undodir=~/AppData/Local/nvim/undodir
+endif
+
+set undofile
 
 
 " ~~~ SEARCHING ~~~
@@ -109,8 +121,8 @@ noremap <Up> gk
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
 " Buffers
-noremap <C-A-P> :bp<CR>
-noremap <C-A-N> :bn<CR>
+nnoremap <A-h> :bp<CR>
+nnoremap <A-l> :bn<CR>
 " Splits
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -125,10 +137,10 @@ nnoremap <C-l> <C-w>l
 :map <leader>s :mksession<CR>
 :map <leader>n :call ToggleLineNumbering()<CR>
 
-if executable('fzf')
-  :map <expr> <leader>f (len(system('git rev-parse')) ? ':Files' : ':GFiles --exclude-standard --others --cached')."\<cr>"
-  :map <silent> <leader>b :Buffers<CR>
-endif
+"if executable('fzf')
+"  :map <expr> <leader>f (len(system('git rev-parse')) ? ':Files' : ':GFiles --exclude-standard --others --cached')."\<cr>"
+"  :map <silent> <leader>b :Buffers<CR>
+"endif
 
 " ~~~ OTHER MAPPINGS ~~~
 " ~~~~~~~~~~~~~~~~~~~~~~
