@@ -106,7 +106,6 @@ augroup go
     autocmd FileType go nmap <leader>c <Plug>(go-referrers)
     autocmd FileType go nmap <leader>C <Plug>(go-callstack)
     autocmd FileType go nmap <leader>p <Plug>(go-channel-peers)
-    autocmd FileType go vmap <leader>f <Plug>(go-freevars)
 augroup END
 
 let g:go_fmt_command = "goimports"
