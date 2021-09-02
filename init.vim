@@ -162,6 +162,12 @@ map <C-Up> :copen<CR>
 :map <leader>n :call ToggleLineNumbering()<CR>
 
 
+" ~~~ OMNI COMPLETION ~~~
+" ~~~~~~~~~~~~~~~~~~~~~~~
+inoremap <C-Space> <C-x><C-o>
+:set completeopt=longest,menuone
+
+
 " ~~~ OTHER MAPPINGS ~~~
 " ~~~~~~~~~~~~~~~~~~~~~~
 :map <F4> :call ToggleSpellChecking()<CR>
