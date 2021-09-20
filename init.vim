@@ -148,10 +148,10 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 " Quickfix Menu
-map <C-Right> :cnext<CR>
-map <C-Left> :cprevious<CR>
-map <C-Down> :cclose<CR>
-map <C-Up> :copen<CR>
+nnoremap <C-Right> :cnext<CR>
+nnoremap <C-Left> :cprevious<CR>
+nnoremap <C-Down> :cclose<CR>
+nnoremap <C-Up> :copen<CR>
 
 
 " ~~~ LEADER MAPPINGS ~~~
@@ -222,11 +222,10 @@ let g:vimwiki_list = [
 " Only treat .md files in the wiki directory as vimwiki files
 "let g:vimwiki_global_ext = 0
 
-" TODO: Replace ag with rg, since that's what I use most now
-" ~~~ Silver Searcher ~~~
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
-  command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-  nnoremap \ :Ag<space>
+" ~~~ Ripgrep ~~~
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --smart-case\ --hidden\ --glob\ '!.git'
+  command -nargs=+ -complete=file -bar Rg silent! grep! <args>|cwindow|redraw!
+  nnoremap \ :Rg<space>
 endif
 
