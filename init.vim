@@ -25,7 +25,9 @@ endif
 
 Plug 'vimwiki/vimwiki'
 
-Plug 'sainnhe/edge'
+"" Themes -> https://vimcolorschemes.com/
+"Plug 'sainnhe/edge'
+Plug 'sainnhe/everforest'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 
@@ -119,10 +121,12 @@ let g:go_highlight_types = 1
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 set termguicolors
 set background=dark
-colorscheme edge
+"colorscheme edge
+colorscheme everforest
 set laststatus=2
 set showtabline=2
-let g:lightline = {'colorscheme': 'edge'}
+"let g:lightline = {'colorscheme': 'edge'}
+let g:lightline = {'colorscheme': 'everforest'}
 let g:lightline.tabline = {'left': [['buffers']], 'right': [['bufnum']]}
 let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type = {'buffers': 'tabsel'}
@@ -157,9 +161,14 @@ nnoremap <C-Up> :copen<CR>
 " ~~~ LEADER MAPPINGS ~~~
 " ~~~~~~~~~~~~~~~~~~~~~~~
 :let mapleader=","
+" Clear highlighting
 :map <leader>, :nohl<CR>
+" Save current vim session
 :map <leader>s :mksession<CR>
+" Toggle absolute/relative line numbers
 :map <leader>n :call ToggleLineNumbering()<CR>
+" Close all but current window
+"map <leader>k :%bd|e#<CR>
 
 
 " ~~~ OMNI COMPLETION ~~~
