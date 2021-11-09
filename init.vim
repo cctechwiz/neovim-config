@@ -9,6 +9,14 @@ if has("win32")
   call plug#begin('~/AppData/Local/nvim/plugged')
 endif
 
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'glepnir/lspsaga.nvim'
+
 " https://github.com/fatih/vim-go/wiki/Tutorial
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'AndrewRadev/splitjoin.vim'
@@ -32,6 +40,70 @@ Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 
 call plug#end()
+
+
+" ~~~ LUA CONFIGS ~~~
+" ~~~~~~~~~~~~~~~~~~~
+lua << EOF
+local cmp = require'cmp'
+
+  cmp.setup({
+    --snippet = {
+    --  -- REQUIRED - you must specify a snippet engine
+    --  expand = function(args)
+    --    vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+    --    -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+    --    -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+    --    -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
+    --  end,
+    --},
+    mapping = {
+      ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+      ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+      ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+      ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+      ['<C-e>'] = cmp.mapping({
+        i = cmp.mapping.abort(),
+        c = cmp.mapping.close(),
+      }),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    },
+    completion = {
+      autocomplete = false,
+    },
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      -- { name = 'vsnip' }, -- For vsnip users.
+      -- { name = 'luasnip' }, -- For luasnip users.
+      -- { name = 'ultisnips' }, -- For ultisnips users.
+      -- { name = 'snippy' }, -- For snippy users.
+    }, {
+      { name = 'buffer' },
+    })
+  })
+
+  -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline('/', {
+    sources = {
+      { name = 'buffer' }
+    }
+  })
+
+  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline(':', {
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    })
+  })
+
+  -- Setup lspconfig.
+  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  require('lspconfig')['tsserver'].setup {
+    capabilities = capabilities
+  }
+EOF
 
 
 " ~~~ GENERAL ~~~
@@ -117,11 +189,17 @@ let g:go_addtags_transform = "camelcase"
 let g:go_highlight_types = 1
 
 
+" ~~~ TS/JS SPECIFIC ~~~
+" ~~~~~~~~~~~~~~~~~~~~~~
+augroup ts
+augroup END
+
 " ~~~ APPEARANCE / THEMES ~~~
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 set termguicolors
 set background=dark
 "colorscheme edge
+let g:everforest_background = 'medium' "hard, medium, or soft
 colorscheme everforest
 set laststatus=2
 set showtabline=2
@@ -174,7 +252,7 @@ nnoremap <C-Up> :copen<CR>
 " ~~~ OMNI COMPLETION ~~~
 " ~~~~~~~~~~~~~~~~~~~~~~~
 inoremap <C-Space> <C-x><C-o>
-:set completeopt=longest,menuone
+set completeopt=longest,menu,menuone,noinsert,noselect
 
 
 " ~~~ OTHER MAPPINGS ~~~
