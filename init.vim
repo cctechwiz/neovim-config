@@ -9,13 +9,23 @@ if has("win32")
   call plug#begin('~/AppData/Local/nvim/plugged')
 endif
 
+" LSP & CMP
+" https://github.com/neovim/nvim-lspconfig
+" https://github.com/hrsh7th/nvim-cmp/
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
-Plug 'glepnir/lspsaga.nvim'
+"Plug 'glepnir/lspsaga.nvim'
+
+" Telescope
+" https://github.com/nvim-telescope/telescope.nvim
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
 " https://github.com/fatih/vim-go/wiki/Tutorial
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -38,6 +48,7 @@ Plug 'vimwiki/vimwiki'
 Plug 'sainnhe/everforest'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
+
 
 call plug#end()
 
@@ -103,6 +114,9 @@ local cmp = require'cmp'
   require('lspconfig')['tsserver'].setup {
     capabilities = capabilities
   }
+
+  --local saga = require'lspsaga'
+  --saga.init_lsp_saga()
 EOF
 
 
@@ -284,6 +298,19 @@ endfunc
 
 " ~~~ PLUG-INS / 3RD PARTY ~~~
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+" ~~~ Telescope ~~~
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+"nnoremap <leader>fw <cmd>Telescope tmux windows<cr>
+"nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fa :lua require'telescope.builtin'.lsp_code_actions{}<CR><ESC>
+
+" ~~~ LSP Saga ~~~
+"nnoremap <silent> gh :Lspsaga lsp_finder<CR>
+"nnoremap <silent><leader>ca :Lspsaga code_action<CR>
+"vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<CR>
 
 " ~~~ NERD Tree ~~~
 map <C-n> :NERDTreeToggle<CR>
