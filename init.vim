@@ -119,6 +119,34 @@ local cmp = require'cmp'
   --saga.init_lsp_saga()
 EOF
 
+lua <<EOF
+local actions = require("telescope.actions")
+
+require("telescope").setup({
+    defaults = {
+        file_sorter = require("telescope.sorters").get_fzy_sorter,
+        file_previewer = require("telescope.previewers").vim_buffer_cat.new,
+        grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
+        qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
+
+        mappings = {
+            i = {
+                ["<C-x>"] = false,
+                ["<C-q>"] = actions.send_to_qflist,
+            },
+        },
+    },
+    extensions = {
+        fzy_native = {
+            override_generic_sorter = false,
+            override_file_sorter = true,
+        },
+    },
+})
+
+require("telescope").load_extension("fzy_native")
+EOF
+
 
 " ~~~ GENERAL ~~~
 " ~~~~~~~~~~~~~~~
@@ -256,9 +284,9 @@ nnoremap <C-Up> :copen<CR>
 " Clear highlighting
 :map <leader>, :nohl<CR>
 " Save current vim session
-:map <leader>s :mksession<CR>
+":map <leader>s :mksession<CR>
 " Toggle absolute/relative line numbers
-:map <leader>n :call ToggleLineNumbering()<CR>
+:map <leader>nn :call ToggleLineNumbering()<CR>
 " Close all but current window
 "map <leader>k :%bd|e#<CR>
 
@@ -299,13 +327,30 @@ endfunc
 " ~~~ PLUG-INS / 3RD PARTY ~~~
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+" ~~~ LSP ~~~
+"nnoremap <leader>sd :lua vim.lsp.buf.definition()<CR>
+"nnoremap <leader>si :lua vim.lsp.buf.implementation()<CR>
+"nnoremap <leader>ssh :lua vim.lsp.buf.signature_help()<CR>
+"nnoremap <leader>srr :lua vim.lsp.buf.references()<CR>
+nnoremap <leader>r :lua vim.lsp.buf.rename()<CR>
+nnoremap <leader>sh :lua vim.lsp.buf.hover()<CR>
+"nnoremap <leader>sca :lua vim.lsp.buf.code_action()<CR>
+"nnoremap <leader>ssd :lua vim.lsp.diagnostic.show_line_diagnostics(); vim.lsp.util.show_line_diagnostics()<CR>
+nnoremap <leader>n :lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap <leader>p :lua vim.lsp.diagnostic.goto_prev()<CR>
+"nnoremap <leader>sll :call LspLocationList()<CR>
+
+
 " ~~~ Telescope ~~~
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-"nnoremap <leader>fw <cmd>Telescope tmux windows<cr>
-"nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-nnoremap <leader>fa :lua require'telescope.builtin'.lsp_code_actions{}<CR><ESC>
+nnoremap <leader>ff :lua require('telescope.builtin').find_files()<CR>
+nnoremap <leader>fs :lua require('telescope.builtin').live_grep()<CR>
+nnoremap <leader>fb :lua require('telescope.builtin').buffers()<CR>
+nnoremap <leader>fg :lua require('telescope.builtin').git_branches()<CR>
+nnoremap <leader>fh :lua require('telescope.builtin').help_tags()<CR>
+nnoremap <leader>fa :lua require('telescope.builtin').lsp_code_actions()<CR><ESC>
+nnoremap <leader>fr :lua require('telescope.builtin').lsp_references()<CR><ESC>
+nnoremap <leader>fd :lua require('telescope.builtin').lsp_definitions()<CR><ESC>
+nnoremap <leader>fi :lua require('telescope.builtin').lsp_implementations()<CR><ESC>
 
 " ~~~ LSP Saga ~~~
 "nnoremap <silent> gh :Lspsaga lsp_finder<CR>
