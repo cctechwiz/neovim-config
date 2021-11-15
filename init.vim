@@ -200,9 +200,9 @@ set colorcolumn=81
 highlight colorcolumn ctermbg=darkgray
 set autoindent
 set smartindent
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set expandtab
 set smarttab
 
@@ -235,6 +235,13 @@ let g:go_highlight_types = 1
 " ~~~~~~~~~~~~~~~~~~~~~~
 augroup ts
 augroup END
+
+" ~~~ MAKE SPECIFIC ~~~
+" ~~~~~~~~~~~~~~~~~~~~~
+augroup make
+    autocmd FileType make setlocal noexpandtab
+augroup END
+
 
 " ~~~ APPEARANCE / THEMES ~~~
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~
