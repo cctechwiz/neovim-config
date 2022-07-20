@@ -297,6 +297,8 @@ nnoremap <C-Up> :copen<CR>
 :map <leader>nn :call ToggleLineNumbering()<CR>
 " Close all but current window
 "map <leader>k :%bd|e#<CR>
+" Quick switch between last two buffers
+:map <leader><Tab> <C-^>
 
 
 " ~~~ OMNI COMPLETION ~~~
