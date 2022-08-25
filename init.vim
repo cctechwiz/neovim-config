@@ -248,20 +248,22 @@ augroup END
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 set termguicolors
 set background=dark
-"colorscheme edge
-let g:everforest_background = 'medium' "hard, medium, or soft
 colorscheme everforest
+let g:everforest_background = 'medium' "hard, medium, or soft
 set laststatus=2
 set showtabline=2
-"let g:lightline = {'colorscheme': 'edge'}
 let g:lightline = {'colorscheme': 'everforest'}
 let g:lightline.tabline = {'left': [['buffers']], 'right': [['bufnum']]}
 let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type = {'buffers': 'tabsel'}
 hi! link Search PMenu
 hi! link IncSearch PMenuSel
-hi Normal guibg=NONE ctermbg=NONE
-
+hi! Normal     ctermbg=NONE guibg=NONE
+hi! LineNr     ctermbg=NONE guibg=NONE
+hi! SignColumn ctermbg=NONE guibg=NONE
+hi! VertSplit ctermbg=NONE guibg=NONE
+hi! NonText ctermbg=NONE guibg=NONE
+hi! EndOfBuffer ctermbg=NONE guibg=NONE
 
 
 " ~~~ NAVIGATION MAPPINGS ~~~
