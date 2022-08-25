@@ -260,6 +260,8 @@ let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
 let g:lightline.component_type = {'buffers': 'tabsel'}
 hi! link Search PMenu
 hi! link IncSearch PMenuSel
+hi Normal guibg=NONE ctermbg=NONE
+
 
 
 " ~~~ NAVIGATION MAPPINGS ~~~
