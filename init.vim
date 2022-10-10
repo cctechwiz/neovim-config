@@ -169,6 +169,7 @@ set splitright
 set clipboard+=unnamedplus
 set noshowmode
 set scrolloff=8
+set mouse=
 
 if has("unix")
   set undodir=~/.config/nvim/undodir
