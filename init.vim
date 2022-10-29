@@ -116,6 +116,10 @@ local cmp = require'cmp'
     capabilities = capabilities
   }
 
+  require('lspconfig')['gopls'].setup{
+    capabilities = capabilities
+  }
+
   --local saga = require'lspsaga'
   --saga.init_lsp_saga()
 EOF
@@ -213,7 +217,7 @@ set smarttab
 " ~~~~~~~~~~~~~~~~~~~
 augroup go
     au FileType go set noexpandtab
-    autocmd FileType go nmap <leader>b  <Plug>(go-build)
+    autocmd FileType go nmap <leader>b <Plug>(go-build)
     autocmd FileType go nmap <leader>r <Plug>(go-rename)
     autocmd FileType go nmap <leader>i <Plug>(go-info)
     autocmd FileType go nmap <leader>I <Plug>(go-implements)
