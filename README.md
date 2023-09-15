@@ -1,3 +1,7 @@
+Merged into https://github.com/cctechwiz/dotconfig
+
+---
+
 # Neovim Configuration
 
 ### Installing Nvim on Unix Systems
